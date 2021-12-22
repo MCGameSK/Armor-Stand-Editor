@@ -1,0 +1,939 @@
+#
+#Github https://github.com/MCGameSK/Armor-Stand-Editor
+#
+
+
+
+import:
+    org.bukkit.inventory.ItemFlag
+    org.bukkit.inventory.EquipmentSlot
+    org.bukkit.entity.ArmorStand
+    org.bukkit.util.EulerAngle
+
+
+
+on inventory click:
+    if current inventory of player is {editorMenu::%player's uuid%}:
+        cancel event
+
+        if event-inventory is open inventory:
+
+            if {selected::%player's uuid%} is alive:
+                if index of clicked slot is 0:
+                    if click type is left mouse button:
+                        message "&aLeft Click to Confirm / &cRight Click to Cancel"
+                        message "&7Your main hand tool will be applied"
+                        set {chmod::%player's uuid%} to 1
+                        close inventory of player
+
+                    else if click type is drop key:
+                        play sound "block.note_block.hat" with volume 0.7 for player
+
+                        if {armorstands::%{selected::%player's uuid%}'s uuid%::lockHead} is not set:
+                            set {armorstands::%{selected::%player's uuid%}'s uuid%::lockHead} to 0
+                        add 1 to {armorstands::%{selected::%player's uuid%}'s uuid%::lockHead}
+                        if {armorstands::%{selected::%player's uuid%}'s uuid%::lockHead} > 5:
+                            set {armorstands::%{selected::%player's uuid%}'s uuid%::lockHead} to 1
+
+                        if {armorstands::%{selected::%player's uuid%}'s uuid%::lockHead} is 1:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.ADDING)
+
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockHead} is 2:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.ADDING_OR_CHANGING)
+                        
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockHead} is 3:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockHead} is 4:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockHead} is 5:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                        execute player command "/asEditor"
+                
+
+
+                if index of clicked slot is 9:
+                    if click type is left mouse button:
+                        message "&aLeft Click to Confirm / &cRight Click to Cancel"
+                        message "&eSwap to Change Axis"
+                        message "&7Your main hand tool will be applied"
+                        set {chmod::%player's uuid%} to 2
+                        close inventory of player
+
+                    else if click type is drop key:
+                        play sound "block.note_block.hat" with volume 0.7 for player
+
+                        if {armorstands::%{selected::%player's uuid%}'s uuid%::lockChest} is not set:
+                            set {armorstands::%{selected::%player's uuid%}'s uuid%::lockChest} to 0
+                        add 1 to {armorstands::%{selected::%player's uuid%}'s uuid%::lockChest}
+                        if {armorstands::%{selected::%player's uuid%}'s uuid%::lockChest} > 5:
+                            set {armorstands::%{selected::%player's uuid%}'s uuid%::lockChest} to 1
+
+                        if {armorstands::%{selected::%player's uuid%}'s uuid%::lockChest} is 1:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.ADDING)
+
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockChest} is 2:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.ADDING_OR_CHANGING)
+                        
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockChest} is 3:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockChest} is 4:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockChest} is 5:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                        execute player command "/asEditor"
+
+
+
+                if index of clicked slot is 18:
+                    if click type is left mouse button:
+                        message "&aLeft Click to Confirm / &cRight Click to Cancel"
+                        message "&7Your main hand tool will be applied"
+                        set {chmod::%player's uuid%} to 3
+                        close inventory of player
+
+                    else if click type is drop key:
+                        play sound "block.note_block.hat" with volume 0.7 for player
+
+                        if {armorstands::%{selected::%player's uuid%}'s uuid%::lockLegs} is not set:
+                            set {armorstands::%{selected::%player's uuid%}'s uuid%::lockLegs} to 0
+                        add 1 to {armorstands::%{selected::%player's uuid%}'s uuid%::lockLegs}
+                        if {armorstands::%{selected::%player's uuid%}'s uuid%::lockLegs} > 5:
+                            set {armorstands::%{selected::%player's uuid%}'s uuid%::lockLegs} to 1
+
+                        if {armorstands::%{selected::%player's uuid%}'s uuid%::lockLegs} is 1:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.ADDING)
+
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockLegs} is 2:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.ADDING_OR_CHANGING)
+                        
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockLegs} is 3:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockLegs} is 4:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockLegs} is 5:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                        execute player command "/asEditor"
+
+
+
+                if index of clicked slot is 27:
+                    if click type is left mouse button:
+                        message "&aLeft Click to Confirm / &cRight Click to Cancel"
+                        message "&7Your main hand tool will be applied"
+                        set {chmod::%player's uuid%} to 4
+                        close inventory of player
+
+                    else if click type is drop key:
+                        play sound "block.note_block.hat" with volume 0.7 for player
+
+                        if {armorstands::%{selected::%player's uuid%}'s uuid%::lockFeet} is not set:
+                            set {armorstands::%{selected::%player's uuid%}'s uuid%::lockFeet} to 0
+                        add 1 to {armorstands::%{selected::%player's uuid%}'s uuid%::lockFeet}
+                        if {armorstands::%{selected::%player's uuid%}'s uuid%::lockFeet} > 5:
+                            set {armorstands::%{selected::%player's uuid%}'s uuid%::lockFeet} to 1
+
+                        if {armorstands::%{selected::%player's uuid%}'s uuid%::lockFeet} is 1:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.ADDING)
+
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockFeet} is 2:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.ADDING_OR_CHANGING)
+                        
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockFeet} is 3:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockFeet} is 4:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockFeet} is 5:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                        execute player command "/asEditor"
+                
+
+
+                else if index of clicked slot is 12:
+                    if click type is left mouse button:
+                        message "&aLeft Click to Confirm / &cRight Click to Cancel"
+                        message "&7Your main hand tool will be applied"
+                        set {chmod::%player's uuid%} to 9
+                        close inventory of player
+                    
+                    else if click type is right mouse button:
+                        message "&aWrite a angle on chat / &cEnter ' - ' to cancel"
+                        message "&7ex) %(random integer between -10 and 10) / 10% %(random integer between -10 and 10) / 10% %(random integer between -10 and 10) / 10%"
+                        message "&8X : Up and Down"
+                        message "&8Y : Left and Right"
+                        message "&8Z : Tilt"
+                        set {chmod::%player's uuid%} to 10
+                        close inventory of player
+
+                    else if click type is drop key:
+                        play sound "block.note_block.hat" with volume 0.7 for player
+
+                        if {armorstands::%{selected::%player's uuid%}'s uuid%::lockOffhand} is not set:
+                            set {armorstands::%{selected::%player's uuid%}'s uuid%::lockOffhand} to 0
+                        add 1 to {armorstands::%{selected::%player's uuid%}'s uuid%::lockOffhand}
+                        if {armorstands::%{selected::%player's uuid%}'s uuid%::lockOffhand} > 5:
+                            set {armorstands::%{selected::%player's uuid%}'s uuid%::lockOffhand} to 1
+
+                        if {armorstands::%{selected::%player's uuid%}'s uuid%::lockOffhand} is 1:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING)
+
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockOffhand} is 2:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING_OR_CHANGING)
+                        
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockOffhand} is 3:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockOffhand} is 4:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockOffhand} is 5:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                        execute player command "/asEditor"
+
+
+
+                else if index of clicked slot is 14:
+                    if click type is left mouse button:
+                        message "&aLeft Click to Confirm / &cRight Click to Cancel"
+                        message "&7Your main hand tool will be applied"
+                        set {chmod::%player's uuid%} to 11
+                        close inventory of player
+                    
+                    else if click type is right mouse button:
+                        message "&aWrite a angle on chat / &cEnter ' - ' to cancel"
+                        message "&7ex) %(random integer between -10 and 10) / 10% %(random integer between -10 and 10) / 10% %(random integer between -10 and 10) / 10%"
+                        message "&8X : Up and Down"
+                        message "&8Y : Left and Right"
+                        message "&8Z : Tilt"
+                        set {chmod::%player's uuid%} to 12
+                        close inventory of player
+
+                    else if click type is drop key:
+                        play sound "block.note_block.hat" with volume 0.7 for player
+
+                        if {armorstands::%{selected::%player's uuid%}'s uuid%::lockHand} is not set:
+                            set {armorstands::%{selected::%player's uuid%}'s uuid%::lockHand} to 0
+                        add 1 to {armorstands::%{selected::%player's uuid%}'s uuid%::lockHand}
+                        if {armorstands::%{selected::%player's uuid%}'s uuid%::lockHand} > 5:
+                            set {armorstands::%{selected::%player's uuid%}'s uuid%::lockHand} to 1
+
+                        if {armorstands::%{selected::%player's uuid%}'s uuid%::lockHand} is 1:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING)
+
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockHand} is 2:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING_OR_CHANGING)
+                        
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockHand} is 3:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockHand} is 4:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.addEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                        else if {armorstands::%{selected::%player's uuid%}'s uuid%::lockHand} is 5:
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING_OR_CHANGING)
+                            {selected::%player's uuid%}.removeEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)
+
+                        execute player command "/asEditor"
+
+
+
+                else if index of clicked slot is 21:
+                    
+                    if click type is right mouse button:
+                        message "&aWrite a angle on chat / &cEnter ' - ' to cancel"
+                        message "&7ex) %(random integer between -10 and 10) / 10% %(random integer between -10 and 10) / 10% %(random integer between -10 and 10) / 10%"
+                        message "&8X : Up and Down"
+                        message "&8Y : Left and Right"
+                        message "&8Z : Tilt"
+                        set {chmod::%player's uuid%} to 13
+                        close inventory of player
+
+                else if index of clicked slot is 23:
+                    
+                    if click type is right mouse button:
+                        message "&aWrite a angle on chat / &cEnter ' - ' to cancel"
+                        message "&7ex) %(random integer between -10 and 10) / 10% %(random integer between -10 and 10) / 10% %(random integer between -10 and 10) / 10%"
+                        message "&8X : Up and Down"
+                        message "&8Y : Left and Right"
+                        message "&8Z : Tilt"
+                        set {chmod::%player's uuid%} to 14
+                        close inventory of player
+
+
+
+                else if index of clicked slot is 13:
+                    if click type is left mouse button:
+                        message "&aWrite a name on chat / &cEnter ' - ' to cancel"
+                        set {chmod::%player's uuid%} to 5
+                        close inventory of player
+                    
+                    else if click type is right mouse button:
+                        play sound "block.note_block.hat" with volume 0.7 for player
+
+                        if {selected::%player's uuid%}.isCustomNameVisible() is true:
+                            {selected::%player's uuid%}.setCustomNameVisible(false)
+                        else:
+                            {selected::%player's uuid%}.setCustomNameVisible(true)
+
+                        execute player command "/asEditor"
+
+                else if index of clicked slot is 4:
+                    if click type is right mouse button:
+                        message "&aWrite a angle on chat / &cEnter ' - ' to cancel"
+                        message "&7ex) %(random integer between -10 and 10) / 10% %(random integer between -10 and 10) / 10% %(random integer between -10 and 10) / 10%"
+                        message "&8X : Up and Down"
+                        message "&8Y : Left and Right"
+                        message "&8Z : Tilt"
+                        set {chmod::%player's uuid%} to 6
+                        close inventory of player
+
+                else if index of clicked slot is 22:
+                    if click type is left mouse button:
+                        message "&aWrite a location on chat / &cEnter ' - ' to cancel"
+                        message "&7ex) %(random integer between -200 and 200)% %(random integer between -200 and 200)% %(random integer between -200 and 200)%"
+                        message formatted "<suggest command:%x-coord of {selected::%player's uuid%}% %y-coord of {selected::%player's uuid%}% %z-coord of {selected::%player's uuid%}%>&e&nCurrent Armor Stand Location"
+                        set {chmod::%player's uuid%} to 7
+                        close inventory of player
+                    
+                    else if click type is right mouse button:
+                        message "&aWrite a angle on chat / &cEnter ' - ' to cancel"
+                        message "&7ex) %(random integer between -10 and 10) / 10% %(random integer between -10 and 10) / 10% %(random integer between -10 and 10) / 10%"
+                        message "&8X : Up and Down"
+                        message "&8Y : Left and Right"
+                        message "&8Z : Tilt"
+                        set {chmod::%player's uuid%} to 8
+                        close inventory of player
+                    
+                    else if click type is drop key:
+                        play sound "block.note_block.hat" with volume 0.7 for player
+
+                        if {selected::%player's uuid%}.hasArms() is true:
+                            {selected::%player's uuid%}.setArms(false)
+                        else:
+                            {selected::%player's uuid%}.setArms(true)
+
+                        execute player command "/asEditor"
+
+                    else if click type is drop key with control:
+                        play sound "block.note_block.hat" with volume 0.7 for player
+
+                        if gravity of {selected::%player's uuid%} is true:
+                            set gravity of {selected::%player's uuid%} to false
+                        else:
+                            set gravity of {selected::%player's uuid%} to true
+
+                        execute player command "/asEditor"
+
+                    else if click type is left mouse button with shift:
+                        play sound "block.note_block.hat" with volume 0.7 for player
+
+                        if {selected::%player's uuid%}.hasBasePlate() is true:
+                            {selected::%player's uuid%}.setBasePlate(false)
+                        else:
+                            {selected::%player's uuid%}.setBasePlate(true)
+
+                        execute player command "/asEditor"
+
+                else if index of clicked slot is 37:
+                    if click type is left mouse button:
+                        play sound "block.note_block.hat" with volume 0.7 for player
+
+                        if {selected::%player's uuid%}.isMarker() is true:
+                            {selected::%player's uuid%}.setMarker(false)
+                        else:
+                            {selected::%player's uuid%}.setMarker(true)
+
+                        execute player command "/asEditor"
+
+                else if index of clicked slot is 39:
+                    if click type is left mouse button:
+                        play sound "block.note_block.hat" with volume 0.7 for player
+
+                        if {selected::%player's uuid%}.isVisible() is true:
+                            {selected::%player's uuid%}.setVisible(false)
+                        else:
+                            {selected::%player's uuid%}.setVisible(true)
+
+                        execute player command "/asEditor"
+
+                else if index of clicked slot is 41:
+                    if click type is left mouse button:
+                        play sound "block.note_block.hat" with volume 0.7 for player
+
+                        if {selected::%player's uuid%} is invulnerable:
+                            make {selected::%player's uuid%} not invulnerable
+                        else:
+                            make {selected::%player's uuid%} invulnerable
+
+                        execute player command "/asEditor"
+
+                else if index of clicked slot is 43:
+                    if click type is left mouse button:
+                        play sound "block.note_block.hat" with volume 0.7 for player
+
+                        if {selected::%player's uuid%}.isSmall() is true:
+                            {selected::%player's uuid%}.setSmall(false)
+                        else:
+                            {selected::%player's uuid%}.setSmall(true)
+
+                        execute player command "/asEditor"
+
+            else:
+                message "&c&oArmor stand does not selected"
+
+
+
+on chat:
+    if {chmod::%player's uuid%} is 5:
+        if message is "-":
+            cancel event
+
+            execute player command "/asEditor"
+        else:
+            cancel event
+
+            {selected::%player's uuid%}.setCustomName(formatted message)
+
+            execute player command "/asEditor"
+
+    else if {chmod::%player's uuid%} is 6:
+        if message is "-":
+            cancel event
+
+            execute player command "/asEditor"
+        else:
+            cancel event
+
+            set {_axis::*} to split message at " "
+
+            set {_euler} to {selected::%player's uuid%}.getHeadPose()
+            set {_euler} to {_euler}.setX(1st element of {_axis::*} parsed as number)
+            set {_euler} to {_euler}.setY(2nd element of {_axis::*} parsed as number)
+            set {_euler} to {_euler}.setZ(3rd element of {_axis::*} parsed as number)
+
+            {selected::%player's uuid%}.setHeadPose({_euler})
+
+            execute player command "/asEditor"
+
+    else if {chmod::%player's uuid%} is 7:
+        if message is "-":
+            cancel event
+
+            execute player command "/asEditor"
+        else:
+            cancel event
+
+            set {_axis::*} to split message at " "
+
+            set {_loc} to location of {selected::%player's uuid%}
+            set x-coord of {_loc} to 1st element of {_axis::*} parsed as number
+            set y-coord of {_loc} to 2nd element of {_axis::*} parsed as number
+            set z-coord of {_loc} to 3rd element of {_axis::*} parsed as number
+
+            teleport {selected::%player's uuid%} to {_loc}
+
+            execute player command "/asEditor"
+
+    else if {chmod::%player's uuid%} is 8:
+        if message is "-":
+            cancel event
+
+            execute player command "/asEditor"
+        else:
+            cancel event
+
+            set {_axis::*} to split message at " "
+
+            set {_euler} to {selected::%player's uuid%}.getBodyPose()
+            set {_euler} to {_euler}.setX(1st element of {_axis::*} parsed as number)
+            set {_euler} to {_euler}.setY(2nd element of {_axis::*} parsed as number)
+            set {_euler} to {_euler}.setZ(3rd element of {_axis::*} parsed as number)
+
+            {selected::%player's uuid%}.setBodyPose({_euler})
+
+            execute player command "/asEditor"
+
+    else if {chmod::%player's uuid%} is 10:
+        if message is "-":
+            cancel event
+
+            execute player command "/asEditor"
+        else:
+            cancel event
+
+            set {_axis::*} to split message at " "
+
+            set {_euler} to {selected::%player's uuid%}.getLeftArmPose()
+            set {_euler} to {_euler}.setX(1st element of {_axis::*} parsed as number)
+            set {_euler} to {_euler}.setY(2nd element of {_axis::*} parsed as number)
+            set {_euler} to {_euler}.setZ(3rd element of {_axis::*} parsed as number)
+
+            {selected::%player's uuid%}.setLeftArmPose({_euler})
+
+            execute player command "/asEditor"
+
+    else if {chmod::%player's uuid%} is 12:
+        if message is "-":
+            cancel event
+
+            execute player command "/asEditor"
+        else:
+            cancel event
+
+            set {_axis::*} to split message at " "
+
+            set {_euler} to {selected::%player's uuid%}.getRightArmPose()
+            set {_euler} to {_euler}.setX(1st element of {_axis::*} parsed as number)
+            set {_euler} to {_euler}.setY(2nd element of {_axis::*} parsed as number)
+            set {_euler} to {_euler}.setZ(3rd element of {_axis::*} parsed as number)
+
+            {selected::%player's uuid%}.setRightArmPose({_euler})
+
+            execute player command "/asEditor"
+
+    else if {chmod::%player's uuid%} is 13:
+        if message is "-":
+            cancel event
+
+            execute player command "/asEditor"
+        else:
+            cancel event
+
+            set {_axis::*} to split message at " "
+
+            set {_euler} to {selected::%player's uuid%}.getLeftLegPose()
+            set {_euler} to {_euler}.setX(1st element of {_axis::*} parsed as number)
+            set {_euler} to {_euler}.setY(2nd element of {_axis::*} parsed as number)
+            set {_euler} to {_euler}.setZ(3rd element of {_axis::*} parsed as number)
+
+            {selected::%player's uuid%}.setLeftLegPose({_euler})
+
+            execute player command "/asEditor"
+
+    else if {chmod::%player's uuid%} is 14:
+        if message is "-":
+            cancel event
+
+            execute player command "/asEditor"
+        else:
+            cancel event
+
+            set {_axis::*} to split message at " "
+
+            set {_euler} to {selected::%player's uuid%}.getRightLegPose()
+            set {_euler} to {_euler}.setX(1st element of {_axis::*} parsed as number)
+            set {_euler} to {_euler}.setY(2nd element of {_axis::*} parsed as number)
+            set {_euler} to {_euler}.setZ(3rd element of {_axis::*} parsed as number)
+
+            {selected::%player's uuid%}.setRightLegPose({_euler})
+
+            execute player command "/asEditor"
+
+
+
+on left click:
+    if {chmod::%player's uuid%} is 1:
+        cancel event
+
+        set {selected::%player's uuid%}'s helmet to player's tool
+        play sound "item.armor.equip_leather" with volume 1 for player
+        execute player command "/asEditor"
+    else if {chmod::%player's uuid%} is 2:
+        cancel event
+
+        set {selected::%player's uuid%}'s chestplate to player's tool
+        play sound "item.armor.equip_leather" with volume 1 for player
+        execute player command "/asEditor"
+    else if {chmod::%player's uuid%} is 3:
+        cancel event
+
+        set {selected::%player's uuid%}'s leggings to player's tool
+        play sound "item.armor.equip_leather" with volume 1 for player
+        execute player command "/asEditor"
+    else if {chmod::%player's uuid%} is 4:
+        cancel event
+
+        set {selected::%player's uuid%}'s boots to player's tool
+        play sound "item.armor.equip_leather" with volume 1 for player
+        execute player command "/asEditor"
+
+    else if {chmod::%player's uuid%} is 9:
+        cancel event
+
+        set {selected::%player's uuid%}'s offhand tool to player's tool
+        play sound "item.armor.equip_leather" with volume 1 for player
+        execute player command "/asEditor"
+
+    else if {chmod::%player's uuid%} is 11:
+        cancel event
+
+        set {selected::%player's uuid%}'s tool to player's tool
+        play sound "item.armor.equip_leather" with volume 1 for player
+        execute player command "/asEditor"
+
+
+
+on right click:
+    if {chmod::%player's uuid%} is 1:
+        cancel event
+
+        execute player command "/asEditor"
+    else if {chmod::%player's uuid%} is 2:
+        cancel event
+
+        execute player command "/asEditor"
+    else if {chmod::%player's uuid%} is 3:
+        cancel event
+
+        execute player command "/asEditor"
+    else if {chmod::%player's uuid%} is 4:
+        cancel event
+
+        execute player command "/asEditor"
+
+    else if {chmod::%player's uuid%} is 9:
+        cancel event
+
+        execute player command "/asEditor"
+
+    else if {chmod::%player's uuid%} is 11:
+        cancel event
+
+        execute player command "/asEditor"
+
+
+
+on right click on armor stand with priority lowest:
+    if player is op:
+        if player is sneaking:
+            cancel event
+
+            set {selected::%player's uuid%} to clicked entity
+            message "&a&lArmor Stand Selected" to player
+            delete {selectMode::%player's uuid%}
+
+            execute player command "/asEditor"
+            exit
+
+    if {selectMode::%player's uuid%} is true:
+        cancel event
+
+        set {selected::%player's uuid%} to clicked entity
+        message "&a&lArmor Stand Selected" to player
+        delete {selectMode::%player's uuid%}
+
+
+
+command /asEditor:
+    trigger:
+        if player is op:
+            delete {chmod::%player's uuid%}
+
+            #Armor Lore
+            if {selected::%player's uuid%}.hasEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.ADDING) is true:
+                add "[ADD]" to {_lockTypeString::*}
+            if {selected::%player's uuid%}.hasEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.ADDING_OR_CHANGING) is true:
+                add "[ADD, CHANGE]" to {_lockTypeString::*}
+            if {selected::%player's uuid%}.hasEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.REMOVING_OR_CHANGING) is true:
+                add "[REMOVE, CHANGE]" to {_lockTypeString::*}
+            if {_lockTypeString::*} is not set:
+                set {_lockTypeString::default} to "&cFALSE"
+
+            set {_helmet} to leather helmet named "&eHelmet" with lore " " and "&6LMB &7Set item" and "&6Drop &7LockType" and " " and "&dLock-Type &7%{_lockTypeString::*}%"
+            set {_meta} to {_helmet}.getItemMeta()
+            {_meta}.addItemFlags([ItemFlag.HIDE_ATTRIBUTES])
+            {_helmet}.setItemMeta({_meta})
+
+
+            delete {_lockTypeString::*}
+            if {selected::%player's uuid%}.hasEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.ADDING) is true:
+                add "[ADD]" to {_lockTypeString::*}
+            if {selected::%player's uuid%}.hasEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.ADDING_OR_CHANGING) is true:
+                add "[ADD, CHANGE]" to {_lockTypeString::*}
+            if {selected::%player's uuid%}.hasEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.REMOVING_OR_CHANGING) is true:
+                add "[REMOVE, CHANGE]" to {_lockTypeString::*}
+            if {_lockTypeString::*} is not set:
+                set {_lockTypeString::default} to "&cFALSE"
+
+            set {_chestplate} to leather chestplate named "&eChestplate" with lore " " and "&6LMB &7Set item" and "&6Drop &7LockType" and " " and "&dLock-Type &7%{_lockTypeString::*}%"
+            set {_meta} to {_chestplate}.getItemMeta()
+            {_meta}.addItemFlags([ItemFlag.HIDE_ATTRIBUTES])
+            {_chestplate}.setItemMeta({_meta})
+
+
+            delete {_lockTypeString::*}
+            if {selected::%player's uuid%}.hasEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.ADDING) is true:
+                add "[ADD]" to {_lockTypeString::*}
+            if {selected::%player's uuid%}.hasEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.ADDING_OR_CHANGING) is true:
+                add "[ADD, CHANGE]" to {_lockTypeString::*}
+            if {selected::%player's uuid%}.hasEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.REMOVING_OR_CHANGING) is true:
+                add "[REMOVE, CHANGE]" to {_lockTypeString::*}
+            if {_lockTypeString::*} is not set:
+                set {_lockTypeString::default} to "&cFALSE"
+
+            set {_leggings} to leather leggings named "&eLeggings" with lore " " and "&6LMB &7Set item" and "&6Drop &7LockType" and " " and "&dLock-Type &7%{_lockTypeString::*}%"
+            set {_meta} to {_leggings}.getItemMeta()
+            {_meta}.addItemFlags([ItemFlag.HIDE_ATTRIBUTES])
+            {_leggings}.setItemMeta({_meta})
+
+
+            delete {_lockTypeString::*}
+            if {selected::%player's uuid%}.hasEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.ADDING) is true:
+                add "[ADD]" to {_lockTypeString::*}
+            if {selected::%player's uuid%}.hasEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.ADDING_OR_CHANGING) is true:
+                add "[ADD, CHANGE]" to {_lockTypeString::*}
+            if {selected::%player's uuid%}.hasEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.REMOVING_OR_CHANGING) is true:
+                add "[REMOVE, CHANGE]" to {_lockTypeString::*}
+            if {_lockTypeString::*} is not set:
+                set {_lockTypeString::default} to "&cFALSE"
+
+            set {_boots} to leather boots named "&eBoots" with lore " " and "&6LMB &7Set item" and "&6Drop &7LockType" and " " and "&dLock-Type &7%{_lockTypeString::*}%"
+            set {_meta} to {_boots}.getItemMeta()
+            {_meta}.addItemFlags([ItemFlag.HIDE_ATTRIBUTES])
+            {_boots}.setItemMeta({_meta})
+
+
+
+            #Center Lore
+            set {_gravity} to "&aTRUE"
+            if gravity of {selected::%player's uuid%} is false:
+                set {_gravity} to "&cFALSE"
+            set {_arms} to "&cFALSE"
+            if {selected::%player's uuid%}.hasArms() is true:
+                set {_arms} to "&aTRUE"
+            set {_basePlate} to "&aTRUE"
+            if {selected::%player's uuid%}.hasBasePlate() is false:
+                set {_basePlate} to "&cFALSE"
+            set {_armorstand} to armor stand named "&eArmor Stand" with lore " " and "&6LMB &7Set pos" and "&6RMB &7Set angle" and "&6Drop &7Set arms" and "&6Drop with Ctrl &7Set gravity" and "&6LMB with Shift &7Set base plate" and " " and "&dArms %{_arms}%" and "&dGravity %{_gravity}%" and "&dBase Plate %{_basePlate}%"
+            set {_customName} to "&7Unnamed"
+            if {selected::%player's uuid%}.getCustomName() is set:
+                set {_customName} to {selected::%player's uuid%}.getCustomName()
+            if {selected::%player's uuid%}.isCustomNameVisible() is true:
+                set {_name} to name tag named "&r%{_customName}%" with lore " " and "&6LMB &7Set name" and "&6RMB &7Set name visible" and " " and "&dName Visible &aTRUE"
+            else:
+                set {_name} to name tag named "&r%{_customName}%" with lore " " and "&6LMB &7Set name" and "&6RMB &7Set name visible" and " " and "&dName Visible &cFALSE"
+            
+            delete {_lockTypeString::*}
+            if {selected::%player's uuid%}.hasEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING) is true:
+                add "[ADD]" to {_lockTypeString::*}
+            if {selected::%player's uuid%}.hasEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING_OR_CHANGING) is true:
+                add "[ADD, CHANGE]" to {_lockTypeString::*}
+            if {selected::%player's uuid%}.hasEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.REMOVING_OR_CHANGING) is true:
+                add "[REMOVE, CHANGE]" to {_lockTypeString::*}
+            if {_lockTypeString::*} is not set:
+                set {_lockTypeString::default} to "&cFALSE"
+            
+            set {_angArmLeft} to redstone torch named "&eLeft Arm" with lore " " and "&6LMB &7Set item" and "&6RMB &7Set angle" and "&6Drop &7LockType" and " " and "&dLock-Type &7%{_lockTypeString::*}%"
+            
+            delete {_lockTypeString::*}
+            if {selected::%player's uuid%}.hasEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING) is true:
+                add "[ADD]" to {_lockTypeString::*}
+            if {selected::%player's uuid%}.hasEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING_OR_CHANGING) is true:
+                add "[ADD, CHANGE]" to {_lockTypeString::*}
+            if {selected::%player's uuid%}.hasEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.REMOVING_OR_CHANGING) is true:
+                add "[REMOVE, CHANGE]" to {_lockTypeString::*}
+            if {_lockTypeString::*} is not set:
+                set {_lockTypeString::default} to "&cFALSE"
+            
+            set {_angArmRight} to redstone torch named "&eRight Arm" with lore " " and "&6LMB &7Set item" and "&6RMB &7Set angle" and "&6Drop &7LockType" and " " and "&dLock-Type &7%{_lockTypeString::*}%"
+            set {_angLegLeft} to redstone torch named "&eLeft Leg" with lore " " and "&6RMB &7Set angle"
+            set {_angLegRight} to redstone torch named "&eRight Leg" with lore " " and "&6RMB &7Set angle"
+            set {_angHead} to redstone torch named "&eHead" with lore " " and "&6RMB &7Set angle"
+            #More Options Lore
+            if {selected::%player's uuid%}.isMarker() is true:
+                set {_marker} to conduit named "&eMarker" with lore " " and "&6LMB &7Set marker" and " " and "&aTRUE"
+            else:
+                set {_marker} to conduit named "&eMarker" with lore " " and "&6LMB &7Set marker" and " " and "&cFALSE"
+            if {selected::%player's uuid%}.isVisible() is true:
+                set {_invisible} to potion named "&eInvisible" with lore " " and "&6LMB &7Set invisible" and " " and "&cFALSE"
+            else:
+                set {_invisible} to potion named "&eInvisible" with lore " " and "&6LMB &7Set invisible" and " " and "&aTRUE"
+            set {_meta} to {_invisible}.getItemMeta()
+            {_meta}.addItemFlags([ItemFlag.HIDE_POTION_EFFECTS])
+            {_invisible}.setItemMeta({_meta})
+            if {selected::%player's uuid%} is invulnerable:
+                set {_invulnerable} to totem of undying named "&eInvulnerable" with lore " " and "&6LMB &7Set invulnerable" and " " and "&aTRUE"
+            else:
+                set {_invulnerable} to totem of undying named "&eInvulnerable" with lore " " and "&6LMB &7Set invulnerable" and " " and "&cFALSE"
+            if {selected::%player's uuid%}.isSmall() is true:
+                set {_small} to small amethyst bud named "&eSmall" with lore " " and "&6LMB &7Set small" and " " and "&aTRUE"
+            else:
+                set {_small} to amethyst cluster named "&eSmall" with lore " " and "&6LMB &7Set small" and " " and "&cFALSE"
+
+
+
+            set {editorMenu::%player's uuid%} to chest inventory with 6 rows named "&5Editor"
+
+            #Armor
+            set slot 0 of {editorMenu::%player's uuid%} to {_helmet}
+            set slot 9 of {editorMenu::%player's uuid%} to {_chestplate}
+            set slot 18 of {editorMenu::%player's uuid%} to {_leggings}
+            set slot 27 of {editorMenu::%player's uuid%} to {_boots}
+            #Center
+            set slot 22 of {editorMenu::%player's uuid%} to {_armorstand}
+            set slot 13 of {editorMenu::%player's uuid%} to {_name}
+            set slot 12 of {editorMenu::%player's uuid%} to {_angArmLeft}
+            set slot 14 of {editorMenu::%player's uuid%} to {_angArmRight}
+            set slot 21 of {editorMenu::%player's uuid%} to {_angLegLeft}
+            set slot 23 of {editorMenu::%player's uuid%} to {_angLegRight}
+            set slot 4 of {editorMenu::%player's uuid%} to {_angHead}
+            #More Options
+            set slot 37 of {editorMenu::%player's uuid%} to {_marker}
+            set slot 39 of {editorMenu::%player's uuid%} to {_invisible}
+            set slot 41 of {editorMenu::%player's uuid%} to {_invulnerable}
+            set slot 43 of {editorMenu::%player's uuid%} to {_small}
+        
+            open {editorMenu::%player's uuid%} to player
+        else:
+            message "&c&oOP required"
+
+
+
+command /asNew:
+    trigger:
+        if player is op:
+            spawn armor stand at player
+            set {selected::%player's uuid%} to last spawned armor stand
+            set gravity of {selected::%player's uuid%} to false
+            message "&a&lArmor Stand Selected"
+        else:
+            message "&c&oOP required"
+
+
+
+command /asSelect:
+    trigger:
+        if player is op:
+            if {selectMode::%player's uuid%} is not set:
+                set {selectMode::%player's uuid%} to true
+                message "&a&lRight click on armor stand you want to edit"
+            else:
+                delete {selectMode::%player's uuid%}
+                message "&c&lCancel Selecting"
+        else:
+            message "&c&oOP required"
